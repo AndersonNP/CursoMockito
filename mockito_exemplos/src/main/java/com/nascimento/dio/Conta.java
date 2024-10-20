@@ -24,7 +24,9 @@ public class Conta {
     }
 
     void validaSaldo(int valorAPagar) {
-        //envia valor para emissor do boleto
+        if(valorAPagar > saldo){
+            throw new IllegalStateException("Saldo insuficiente");
+        }
     }
 
 

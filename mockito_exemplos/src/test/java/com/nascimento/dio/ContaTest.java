@@ -2,6 +2,7 @@ package com.nascimento.dio;
 
 import static org.mockito.Mockito.inOrder;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -39,5 +40,10 @@ public class ContaTest {
         conta.validaSaldo(600);
 
         Mockito.verify(conta, Mockito.times(3)).validaSaldo(ArgumentMatchers.anyInt());
+    }
+
+    @Test
+    void validarDebitoMaiorQueSaldo(){
+        Assertions.assertThrows(IllegalStateException.class, () -> conta.validaSaldo(2_000));
     }
 }
