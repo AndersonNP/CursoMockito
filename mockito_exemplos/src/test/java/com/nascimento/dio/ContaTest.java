@@ -17,22 +17,26 @@ public class ContaTest {
     private Conta conta = new Conta(1_000);
 
     @Test
-    public void validarOrdemDeChamadas(){
+    void validarOrdemDeChamadas(){
+
         conta.pagaBoleto(300);
 
         InOrder inOrder = Mockito.inOrder(conta);
-        inOrder.verify(conta).pagaBoleto(300);
-        inOrder.verify(conta).validaSaldo(300);
-        inOrder.verify(conta).debita(300);
-        inOrder.verify(conta).enviarCreditoParaEmissor(300);
+
+        inOrder.verify(conta).pagaBoleto(ArgumentMatchers.anyInt());
+        inOrder.verify(conta).validaSaldo(ArgumentMatchers.anyInt());
+        inOrder.verify(conta).debita(ArgumentMatchers.anyInt());
+        inOrder.verify(conta).enviarCreditoParaEmissor(ArgumentMatchers.anyInt());
+
+
     }
 
     @Test
-    void validarQuantidadeDeChamadas(){
-        
+    void validarQuatidadeDeChamadas(){
+
         conta.validaSaldo(300);
-        conta.validaSaldo(300);
-        conta.validaSaldo(300);
+        conta.validaSaldo(500);
+        conta.validaSaldo(600);
 
         Mockito.verify(conta, Mockito.times(3)).validaSaldo(ArgumentMatchers.anyInt());
     }

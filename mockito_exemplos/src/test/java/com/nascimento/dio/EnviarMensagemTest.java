@@ -10,22 +10,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class EnviarMensagemTest {
 
-    @Spy
+   @Spy
     private EnviarMensagem enviarMensagem;
 
+   @Test
+    void verificarComportamentoDaClasse(){
+       Mockito.verifyNoInteractions(enviarMensagem);
 
-    @Test
-    void verificarComportamentoDaClasse() {
+       Mensagem mensagem = new Mensagem("Hello World");
+       enviarMensagem.adicionarMensagem(mensagem);
 
-        Mockito.verifyNoInteractions(enviarMensagem);
+       Mockito.verify(enviarMensagem).adicionarMensagem(mensagem);
 
-        Mensagem mensagem = new Mensagem("Primeira mensagem");
-
-        enviarMensagem.adicionarMensagem(mensagem);
-
-        Mockito.verify(enviarMensagem).adicionarMensagem(mensagem);
-
-        Assertions.assertFalse(mensagem.getMensagem().isEmpty());
-    }
+       Assertions.assertFalse(enviarMensagem.getMensagems().isEmpty());
+   }
 }
  

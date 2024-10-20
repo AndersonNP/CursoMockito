@@ -2,12 +2,14 @@ package com.nascimento.dio;
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
@@ -22,13 +24,15 @@ public class CadastrarPessoaTeste {
     private CadastrarPessoa cadastrarPessoa;
 
     @Test
-    public void validarDadosDeCadastro() {
-       DadosLocalizacao dadosLocalizacao = new DadosLocalizacao("MG", "Patos de Minas", "Rua 2", "APT", "Centro");
-        Mockito.when(apiDosCorreios.buscarDadosComBaseNoCep("60766035")).thenReturn(dadosLocalizacao);
-        Pessoa pessoa = cadastrarPessoa.cadastrarPessoa("Anderson", "111111111", LocalDate.now(), "60766035");
-        
-        Assertions.assertEquals("Anderson", pessoa.getNome());
+    void validarDadosDeCadastro(){
+        DadosLocalizacao localizacao =  new DadosLocalizacao("CE", "Fortaleza","Rua 01G","Bloco A", "Passare");
+        Mockito.when(apiDosCorreios.buscarDadosComBaseNoCep("123789")).thenReturn(localizacao);
+        Pessoa nascimento = cadastrarPessoa.cadastrarPessoa("Anderson", "12345678", LocalDate.now(),"123789");
+
+        Assertions.assertEquals("Anderson", nascimento.getNome());
+        Assertions.assertEquals("Fortaleza", nascimento.getDadosLocalizacao().getCidade());
     }
+
 }
 
 
